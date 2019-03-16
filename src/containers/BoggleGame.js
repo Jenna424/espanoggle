@@ -22,7 +22,7 @@ const sixteenDice = [
 ];
 
 // I'm using Fisher Yates algorithm to destructively shuffle the sixteenDice array of 16 strings
-const shakeDiceTray = diceArray => {
+const shakeTray = diceArray => {
   for (let i = 0; i < 16; i++) {
     let arbitraryIndex = Math.floor(Math.random() * 16);
     let temporaryValue = diceArray[i];
