@@ -61,10 +61,10 @@ class BoggleGame extends Component {
     error: false
   }
 
-  componentDidMount() { // diccionario is my axios instance
-    diccionario.get('/palabras') // json-api follows RESTful resource patterns - I'm retrieving the 'index' of dictionary words at '/palabras'
+  componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
+    diccionario.get('/palabras') // json-api follows RESTful resource route architectural patterns - I'm retrieving the 'index' of dictionary words at '/palabras'
       .then(response => {
-        const palabras = response.palabras; // variable palabras stores array of string Spanish words that corresponds to the "palabras" key in JSON object
+        const palabras = response.palabras; // variable palabras stores array of string Spanish words that corresponds to the "palabras" key in JSON object found in api/db.json
         this.setState({ dictionary: palabras }); // store the data retrieved from API in local state of BoggleGame container class component
       })
       .catch(error => { // handle error if dictionary entries fail to load
@@ -87,7 +87,7 @@ class BoggleGame extends Component {
     return false
   }
 
-  const isDefined = (word) => this.state.dictionary.includes(word)
+  const isDefined = word => this.state.dictionary.includes(word)
 
   render() {
     return (
