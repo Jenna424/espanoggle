@@ -56,9 +56,13 @@ class BoggleGame extends Component {
   state = {
     board: buildBoard()
   }
+
   render() {
   	return (
-  	  <div>Stubbing out the shell of my BoggleGame React container class component!</div>
+  	  <div>
+        Stubbing out the shell of my BoggleGame React container class component!
+        {this.state.board.map(array => array.map(object => console.log(object)))}
+      </div>
   	)
   }
 }
