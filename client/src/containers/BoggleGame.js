@@ -76,15 +76,16 @@ class BoggleGame extends Component {
 
   const isUnique = word => !this.state.wordsOnBoard.includes(word)
 
-  
-  	return (
-  	  <div className="ui container">
+  const cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
+
+  render() {
+    return (
+      <div className="ui container">
         if (this.state.error) {
           <p style={{textAlign: 'center'}}>Spanish dictionary entries failed to load.</p>
         }
       </div>
-  	)
+    )
   }
-}
 
 export default BoggleGame;
