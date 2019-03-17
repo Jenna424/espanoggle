@@ -56,31 +56,35 @@ const buildBoard = () => {
 class BoggleGame extends Component {
   state = {
     board: buildBoard(),
-    wordsOnBoard: [];
+    wordsOnBoard: [],
     dictionary: [],
-    error: false
+    error: false,
     initialCountdown: 180 // A single round of boggle lasts 3 minutes
   }
 
   componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
-    diccionario.get('/palabras') // json-api follows RESTful resource route architectural patterns - I'm retrieving the 'index' of dictionary words at '/palabras'
+    diccionario.get('/palabras') // json-api follows RESTful resource route architecture - I'm retrieving the 'index' of dictionary words
       .then(response => {
-        const palabras = response.palabras; // variable palabras stores array of string Spanish words that corresponds to the "palabras" key in JSON object found in api/db.json
-        this.setState({ dictionary: palabras }); // store the data retrieved from API in local state of BoggleGame container class component
+        const palabras = response.data // variable palabras stores array of string Spanish words that corresponds to the "palabras" key in JSON object found in api/db.json
+        this.setState({
+          dictionary: [...palabras] // spread operator copies over all string word elements stored in palabras array
+        }) // store the data retrieved from API in local state of BoggleGame container class component
       })
       .catch(error => { // handle error if dictionary entries fail to load
-        this.setState({ error: true });
+        this.setState({
+          error: true 
+        })
       })
   }
 
-  const isValidLength = word => word.length >= 3 ? true : false // a valid word must be at least 3 letters long
+  isValidLength = word => word.length >= 3 ? true : false
 
-  const isUnique = word => !this.state.wordsOnBoard.includes(word)
+  isUnique = word => !this.state.wordsOnBoard.includes(word)
 
-  const cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
+  cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
-  const contiguousCubes = (cubeA, cubeB) => {
-    if (!cubeCopies(cubeA, cubeB)) {
+  contiguousCubes = (cubeA, cubeB) => {
+    if (!this.cubeCopies(cubeA, cubeB)) {
       const rowsApart = Math.abs(cubeA.r - cubeB.r);
       const columnsApart = Math.abs(cubeA.c - cubeB.c);
       return (rowsApart <= 1 && columnsApart <= 1)
@@ -88,16 +92,15 @@ class BoggleGame extends Component {
     return false
   }
 
-  const isDefined = word => this.state.dictionary.includes(word)
+  isDefined = word => this.state.dictionary.includes(word)
 
   render() {
     return (
-      <div className="ui container">
-        if (this.state.error) {
-          <p style={{textAlign: 'center'}}>Spanish dictionary entries failed to load.</p>
-        }
+      <div className="ui-container">
+        {this.state.dictionary.map((letter, i) => <li key={i}>{letter}</li>)}
       </div>
     )
   }
+}
 
 export default BoggleGame;
