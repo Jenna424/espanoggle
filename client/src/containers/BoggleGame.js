@@ -56,6 +56,7 @@ const buildBoard = () => {
 class BoggleGame extends Component {
   state = {
     board: buildBoard(),
+    wordsOnBoard: [];
     dictionary: [],
     error: false
   }
