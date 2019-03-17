@@ -58,8 +58,9 @@ class BoggleGame extends Component {
     board: buildBoard(),
     wordsOnBoard: [],
     dictionary: [],
-    error: false,
-    initialCountdown: 180 // A single round of boggle lasts 3 minutes
+    status: 'new',
+    initialCountdown: 180 // A single round of boggle lasts 3 minutes,
+    error: false
   }
 
   componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
