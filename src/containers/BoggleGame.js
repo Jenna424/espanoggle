@@ -54,7 +54,7 @@ const buildBoard = () => {
 
 class BoggleGame extends Component {
   state = {
-    board: [];
+    board: buildBoard();
   }
   render() {
   	return (
