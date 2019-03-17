@@ -78,6 +78,17 @@ class BoggleGame extends Component {
 
   const cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
+  const contiguousCubes = (cubeA, cubeB) => {
+    if (!cubeCopies(cubeA, cubeB)) {
+      const rowsApart = Math.abs(cubeA.r - cubeB.r);
+      const columnsApart = Math.abs(cubeA.c - cubeB.c);
+      return (rowsApart <= 1 && columnsApart <= 1)
+    }
+    return false
+  }
+
+  const isDefined = (word) => this.state.dictionary.includes(word)
+
   render() {
     return (
       <div className="ui container">
