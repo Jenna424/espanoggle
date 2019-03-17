@@ -71,6 +71,8 @@ class BoggleGame extends Component {
       })
   }
 
+  const isValidLength = word => word.length >= 3 ? true : false // a valid word must be at least 3 letters long
+
   render() {
   	return (
   	  <div className="ui container">
