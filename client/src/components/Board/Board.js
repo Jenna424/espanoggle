@@ -14,7 +14,7 @@ export default Board;
 // When Board component is rendered from BoggleGame's render method, it receives this object as its props:
 // {
 //   board: the array of nested arrays stored in BoggleGame's local state,
-//   handleOnClick: callback arrow function object, that I'll have to pass down further to Cube component
+//   handleOnClick: callback arrow function object (I'll have to pass this down further to Cube component)
 // }
 // .map() invokes the provided callback function once on each array element & returns an array of resulting values
 // Using .map(), iterate through the 4 row array elements of the outermost array
