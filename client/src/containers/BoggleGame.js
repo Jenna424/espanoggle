@@ -98,7 +98,7 @@ class BoggleGame extends Component {
   render() {
     return (
       <div className="ui-container">
-        {this.state.dictionary.map((letter, i) => <li key={i}>{letter}</li>)}
+        <Board board={this.state.board} handleOnClick={this.handleOnClick} />
       </div>
     )
   }
