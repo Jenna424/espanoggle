@@ -1,4 +1,5 @@
 import React from 'react';
+import Cube from '../Cube/Cube';
 
 const Board = props => (
   props.board.map(row => (
