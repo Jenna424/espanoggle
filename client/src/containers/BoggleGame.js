@@ -40,7 +40,7 @@ const buildBoard = () => {
   // landedLetters stores an array of 16 string letter elements, 
   // in which each letter element is a randomly picked character from each string dice element in shakenDice array
   // I'm trying to model the resulting collection of letters that landed face up when each die is rolled
-  const landedLetters = shakenDice.map(diceString => diceString.charAt(Math.floor(Math.random() * 6)))
+  const landedLetters = shakenDice.map(diceString => diceString[Math.floor(Math.random() * 6)])
   for (let r = 0; r < 4; r++) {
     const row = [];
     for (let c = 0; c < 4; c++) {
