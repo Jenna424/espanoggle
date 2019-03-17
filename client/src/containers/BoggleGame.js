@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
 // blankBoard stores an array of 4 arrays, in which each nested array contains 4 null elements (to simulate a blank 4x4 boggle board)
 const blankBoard = new Array(4).fill(new Array(4).fill(null));
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
@@ -54,14 +55,28 @@ const buildBoard = () => {
 
 class BoggleGame extends Component {
   state = {
-    board: buildBoard()
+    board: buildBoard(),
+    dictionary: [],
+    error: false
+  }
+
+  componentDidMount() { // diccionario is my axios instance
+    diccionario.get('/palabras') // json-api follows RESTful resource patterns - I'm retrieving the 'index' of dictionary words at '/palabras'
+      .then(response => {
+        const palabras = response.palabras; // variable palabras stores array of string Spanish words that corresponds to the "palabras" key in JSON object
+        this.setState({ dictionary: palabras }); // store the data retrieved from API in local state of BoggleGame container class component
+      })
+      .catch(error => { // handle error if dictionary entries fail to load
+        this.setState({ error: true });
+      })
   }
 
   render() {
   	return (
-  	  <div>
-        Stubbing out the shell of my BoggleGame React container class component!
-        {this.state.board.map(array => array.map(object => console.log(object)))}
+  	  <div className="ui container">
+        if (this.state.error) {
+          <p style={{textAlign: 'center'}}>Spanish dictionary entries failed to load.</p>
+        }
       </div>
   	)
   }
