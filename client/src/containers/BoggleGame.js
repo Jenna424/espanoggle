@@ -42,11 +42,11 @@ const buildBoard = () => {
   // in which each letter element is a randomly picked character from each string dice element in shakenDice array
   // I'm trying to model the resulting collection of letters that landed face up when each die is rolled
   const landedLetters = shakenDice.map(diceString => diceString[Math.floor(Math.random() * 6)])
-  for (let r = 0; r < 4; r++) {
-    const row = [];
-    for (let c = 0; c < 4; c++) {
+  for (let c = 5; c >= 0; c--) { // The coordinates of the leftmost square in the very bottom row are 0,0 (which lets me visualize this like a graph with an x-axis and y-axis)
+    const row = []; // create a row
+    for (let r = 0; r < 4; r++) { // this inner loop populates a single 4
       const landedLetter = landedLetters.pop();
-      const cube = {r, c, landedLetter};
+      const cube = { r, c, landedLetter }; // object destructuring - accessing key/value pairs by just referencing the key names
       row.push(cube);
     }
     board.push(row)
