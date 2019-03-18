@@ -118,6 +118,25 @@ class BoggleGame extends Component {
     })
     // to-do: adjust which cubes are clickable based on the cube that was just removed/added
   }
+  //~ My criteria for a clickable cube ~
+  // Adding a letter to the word: 
+  // The previous letter cube that was added to the word (i.e. the last element in chosenCubes array) is
+  // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to the word
+  // Removing a letter from the word: 
+  // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word 
+  // (i.e. the last element in chosenCubes array)
+  // A new game is in progress and NO cubes have been clicked yet
+  isClickable = cube => {
+    if (this.state.status === 'over') { // If the game is over, I shouldn't be able to click a cube
+      return false
+    }
+    // If wordBuilder is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
+    if (!this.state.chosenCubes.length) {
+      return true
+    }
+
+    return this.contiguousCubes(this.state.chosenCubes.last, cube)
+  }
 
   render() {
     return (
