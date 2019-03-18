@@ -99,6 +99,7 @@ class BoggleGame extends Component {
   render() {
     return (
       <div className="ui-container">
+        <h2 style={{'text-align': 'center'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} />
       </div>
     )
