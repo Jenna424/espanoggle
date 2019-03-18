@@ -100,23 +100,27 @@ class BoggleGame extends Component {
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed side-up }
   handleCubeClicked = cubeClicked => {
-    let chosenCubesCopy = this.state.chosenCubes.slice(); // create a copy of the array to maintain immutability
-    let modifiedCubesCopy, modifiedWord; // currently undefined
-    // if the user clicks on the last cube that was previously clicked
-    if (this.state.chosenCubes.includes(cubeClicked) {
+    const { chosenCubes, wordBuilder } = this.state;
+    // create a copy of the array to maintain immutability
+    let chosenCubesCopy = chosenCubes.slice()
+    let modifiedCubesCopy, modifiedWord; // both are currently undefined
+    // if the user clicks on the last letter cube that was just added to the word
+    if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
       // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
-      modifiedCubesCopy = chosenCubesCopy.pop() // pop() removes and returns the last array element
+      modifiedCubesCopy = chosenCubesCopy.slice(0, -1)
       // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
-      modifiedWord= this.state.wordBuilder.slice(0, -1) // .slice() is nondestructive
-    } else { // the cube clicked on was not previous clicked
-      modifiedCubesCopy = chosenCubesCopy.push(cubeClicked)
-      modifiedWord = this.state.wordBuilder.concat(cubeClicked.character) // .concat() is nondestructive
+      modifiedWord = wordBuilder.slice(0, -1) // .slice() is nondestructive
+    } else { // the cube clicked on was not previously clicked
+      modifiedCubesCopy = [...chosenCubes, cubeClicked]
+      modifiedWord = wordBuilder.concat(cubeClicked.landedLetter) // .concat() is nondestructive
     }
-    this.setState({
-      chosenCubes: modifiedCubesCopy,
-      wordBuilder: modifiedWord
+    this.setState(state => {
+      return {
+        chosenCubes: modifiedCubesCopy,
+        wordBuilder: modifiedWord
+      }
     })
-    // to-do: adjust which cubes are clickable based on the cube that was just removed/added
+    console.log(wordBuilder)
   }
   //~ My criteria for a clickable cube ~
   // Adding a letter to the word: 
@@ -131,11 +135,12 @@ class BoggleGame extends Component {
       return false
     }
     // If wordBuilder is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
-    if (!this.state.chosenCubes.length) {
+    if (this.state.chosenCubes.length === 0) {
       return true
     }
 
-    return this.contiguousCubes(this.state.chosenCubes.last, cube)
+    let lastLetterCubeChosen = this.state.chosenCubes[this.state.chosenCubes.length - 1];
+    return this.contiguousCubes(lastLetterCubeChosen, cube)
   }
 
   render() {
