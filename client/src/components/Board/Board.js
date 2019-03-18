@@ -1,16 +1,11 @@
 import React from 'react';
 import Cube from '../Cube/Cube';
+import styles from './Board.module.css';
 
-const Board = props => (
-  props.board.map(row => (
-  	row.map(cube => (
-  	  <Cube key={rowNum + colNum} rowNum={cube.r} colNum={cube.c} character={cube.landedLetter} />
-  	))
-  ))
-)
 
 export default Board;
 
+/*
 // Board is a stateless functional component that just receives props from its parent and renders valid JSX
 // When Board component is rendered from BoggleGame's render method, it receives this object as its props:
 // {
@@ -25,3 +20,4 @@ export default Board;
 // When each Cube component is rendered from inside the .map() iteration, it receives this object as its props:
 // { rowNum: row number here, colNum: column number here, character: "string letter that landed face up here" }
 // The resulting JSX from rendering the array of Cube components will be injected into the <div> to populate the game board
+*/
