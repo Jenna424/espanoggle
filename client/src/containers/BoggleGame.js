@@ -139,8 +139,8 @@ class BoggleGame extends Component {
       return true
     }
 
-    let lastLetterCubeChosen = this.state.chosenCubes[this.state.chosenCubes.length - 1];
-    return this.contiguousCubes(lastLetterCubeChosen, cube)
+    let lastCubeChosen = this.state.chosenCubes[this.state.chosenCubes.length - 1];
+    return this.contiguousCubes(lastLetterChosen, cube)
   }
 
   render() {
