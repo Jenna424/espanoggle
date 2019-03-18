@@ -57,7 +57,7 @@ const buildBoard = () => {
 class BoggleGame extends Component {
   state = {
     board: buildBoard(),
-    clickedCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
+    chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
     wordBuilder: '', // the string word that the user is 'building' by clicking cubes on the boggle board
     wordsOnBoard: [],
     dictionary: [],
@@ -100,23 +100,21 @@ class BoggleGame extends Component {
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed side-up }
   handleCubeClicked = cubeClicked => {
-    let clickedCubesCopy = this.state.clickedCubes.slice(); // create a copy of the array to maintain immutability
-    let updatedClickedCubesCopy, modifiedString; // currently undefined
+    let chosenCubesCopy = this.state.chosenCubes.slice(); // create a copy of the array to maintain immutability
+    let modifiedCubesCopy, modifiedWord; // currently undefined
     // if the user clicks on the last cube that was previously clicked
-    if (this.state.clickedCubes.includes(cubeClicked) {
+    if (this.state.chosenCubes.includes(cubeClicked) {
       // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
-      updatedClickedCubesCopy = clickedCubesCopy.filter(cubeObject => 
-        cubeObject.r !== cubeClicked.r && cubeObject.c !== cubeClicked.c
-      )
+      modifiedCubesCopy = chosenCubesCopy.pop() // pop() removes and returns the last array element
       // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
-      modifiedString = this.state.wordBuilder.slice(0, -1) // .slice() is nondestructive
+      modifiedWord= this.state.wordBuilder.slice(0, -1) // .slice() is nondestructive
     } else { // the cube clicked on was not previous clicked
-      updatedClickedCubesCopy = clickedCubesCopy.push(cubeClicked)
-      modifiedString = this.state.wordBuilder.concat(cubeClicked.character) // .concat() is nondestructive
+      modifiedCubesCopy = chosenCubesCopy.push(cubeClicked)
+      modifiedWord = this.state.wordBuilder.concat(cubeClicked.character) // .concat() is nondestructive
     }
     this.setState({
-      clickedCubes: updatedClickedCubesCopy,
-      wordBuilder: modifiedString
+      chosenCubes: modifiedCubesCopy,
+      wordBuilder: modifiedWord
     })
     // to-do: adjust which cubes are clickable based on the cube that was just removed/added
   }
