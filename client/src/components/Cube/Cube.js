@@ -1,11 +1,11 @@
+import React, { PureComponent } from 'react';
+import styles from './Cube.module.css';
+
 {/*
 // PureComponent executes shouldComponentUpdate lifecycle method behind the scenes
 // I'm using PureComponent here to avoid unnecessary re-renders of every cube in the boggle board when one is clicked. 
 // Only the cube that was clicked (and maybe some adjacent cubes) should re-render.
 */}
-
-import React, { PureComponent } from 'react';
-import styles from './Cube.module.css';
 
 class Cube extends PureComponent {
   handleOnClick = () => {
