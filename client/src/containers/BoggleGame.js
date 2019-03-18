@@ -142,7 +142,7 @@ class BoggleGame extends Component {
     return (
       <div className="ui-container">
         <h2 style={{'textAlign': 'center'}}><em>¡Españoggle!</em></h2>
-        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} />
+        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
       </div>
     )
   }
