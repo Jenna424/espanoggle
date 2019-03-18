@@ -57,7 +57,8 @@ const buildBoard = () => {
 class BoggleGame extends Component {
   state = {
     board: buildBoard(),
-    clickedCubes = []; // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
+    clickedCubes = [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
+    wordBuilder = '', // the string word that the user is 'building' by clicking cubes on the boggle board
     wordsOnBoard: [],
     dictionary: [],
     status: 'new',
