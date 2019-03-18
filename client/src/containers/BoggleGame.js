@@ -135,7 +135,7 @@ class BoggleGame extends Component {
       return false
     }
     // If wordBuilder is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
-    if (this.state.chosenCubes.length === 0) {
+    if (!this.state.chosenCubes.length) {
       return true
     }
 
