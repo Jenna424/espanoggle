@@ -97,12 +97,35 @@ class BoggleGame extends Component {
   }
 
   isDefined = word => this.state.dictionary.includes(word)
+  // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
+  // { r: row number, c: column number, landedLetter: string letter that landed side-up }
+  handleCubeClicked = cubeClicked => {
+    let clickedCubesCopy = this.state.clickedCubes.slice(); // create a copy of the array to maintain immutability
+    let updatedClickedCubesCopy, modifiedString; // currently undefined
+    // if the user clicks on the last cube that was previously clicked
+    if (this.state.clickedCubes.includes(cubeClicked) {
+      // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
+      updatedClickedCubesCopy = clickedCubesCopy.filter(cubeObject => 
+        cubeObject.r !== cubeClicked.r && cubeObject.c !== cubeClicked.c
+      )
+      // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
+      modifiedString = this.state.wordBuilder.slice(0, -1) // .slice() is nondestructive
+    } else { // the cube clicked on was not previous clicked
+      updatedClickedCubesCopy = clickedCubesCopy.push(cubeClicked)
+      modifiedString = this.state.wordBuilder.concat(cubeClicked.character) // .concat() is nondestructive
+    }
+    this.setState({
+      clickedCubes: updatedClickedCubesCopy,
+      wordBuilder: modifiedString
+    })
+    // to-do: adjust which cubes are clickable based on the cube that was just removed/added
+  }
 
   render() {
     return (
       <div className="ui-container">
-        <h2 style={{'text-align': 'center'}}><em>¡Españoggle!</em></h2>
-        <Board board={this.state.board} />
+        <h2 style={{'textAlign': 'center'}}><em>¡Españoggle!</em></h2>
+        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} />
       </div>
     )
   }
