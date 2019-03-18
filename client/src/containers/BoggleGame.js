@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
+import Board from '../components/Board/Board';
 // blankBoard stores an array of 4 arrays, in which each nested array contains 4 null elements (to simulate a blank 4x4 boggle board)
 const blankBoard = new Array(4).fill(new Array(4).fill(null));
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
@@ -59,7 +60,7 @@ class BoggleGame extends Component {
     wordsOnBoard: [],
     dictionary: [],
     status: 'new',
-    initialCountdown: 180 // A single round of boggle lasts 3 minutes,
+    initialCountdown: 180, // A single round of boggle lasts 3 minutes,
     error: false
   }
 
@@ -98,7 +99,7 @@ class BoggleGame extends Component {
   render() {
     return (
       <div className="ui-container">
-        <Board board={this.state.board} handleOnClick={this.handleOnClick} />
+        <Board board={this.state.board} />
       </div>
     )
   }
