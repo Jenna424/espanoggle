@@ -58,7 +58,7 @@ class BoggleGame extends Component {
   state = {
     board: buildBoard(),
     chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
-    wordBuilder: '', // the string word that the user is 'building' by clicking cubes on the boggle board
+    palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
     wordsOnBoard: [],
     dictionary: [],
     status: 'new',
@@ -100,23 +100,23 @@ class BoggleGame extends Component {
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed side-up }
   handleCubeClicked = cubeClicked => {
-    const { chosenCubes, wordBuilder } = this.state;
+    const { chosenCubes, palabraCreada } = this.state;
     // create a copy of the array to maintain immutability
     let chosenCubesCopy = chosenCubes.slice()
-    let modifiedCubesCopy, modifiedWord; // both are currently undefined
+    let modifiedCubesCopy, palabraModificada; // both are currently undefined
     // if the user clicks on the last letter cube that was just added to the word
     if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
       // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
       modifiedCubesCopy = chosenCubesCopy.slice(0, -1)
       // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
-      modifiedWord = wordBuilder.slice(0, -1) // .slice() is nondestructive
+      palabraModificada = palabraCreada.slice(0, -1) // .slice() is nondestructive
     } else { // the cube clicked on was not previously clicked
       modifiedCubesCopy = [...chosenCubes, cubeClicked]
-      modifiedWord = wordBuilder.concat(cubeClicked.landedLetter) // .concat() is nondestructive
+      palabraModificada = palabraCreada.concat(cubeClicked.landedLetter) // .concat() is nondestructive
     }
     this.setState((prevState, props) => ({
       chosenCubes: modifiedCubesCopy,
-      wordBuilder: modifiedWord
+      palabraCreada: palabraModificada
     }))
     alert(chosenCubes)
   }
@@ -146,6 +146,7 @@ class BoggleGame extends Component {
       <div className="ui-container">
         <h2 style={{'textAlign': 'center'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
+        <WordBuilder palabraCreada={this.state.palabraCreada} />
       </div>
     )
   }
