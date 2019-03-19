@@ -101,26 +101,6 @@ class BoggleGame extends Component {
   isDefined = word => this.state.dictionary.includes(word)
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed face-up }
-  //handleCubeClicked = cubeClicked => {
-    //const { chosenCubes, palabraCreada } = this.state;
-    // create a copy of the array to maintain immutability
-    //let chosenCubesCopy = chosenCubes.slice()
-    //let modifiedCubesCopy, palabraModificada; // both are currently undefined
-    // if the user clicks on the last letter cube that was just added to the word
-    //if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
-      // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
-      //modifiedCubesCopy = chosenCubesCopy.slice(0, -1)
-      // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
-      //palabraModificada = palabraCreada.slice(0, -1) // .slice() is nondestructive
-    //} else { // the cube clicked on was not previously clicked
-      //modifiedCubesCopy = [...chosenCubes, cubeClicked]
-      //palabraModificada = palabraCreada.concat(cubeClicked.landedLetter) // .concat() is nondestructive
-    //}
-    //this.setState((prevState, props) => ({
-      //chosenCubes: modifiedCubesCopy,
-      //palabraCreada: palabraModificada
-    //}))
-  //}
   handleCubeClicked = cubeClicked => {
     this.setState(
       prevState => {
