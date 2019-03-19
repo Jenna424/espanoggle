@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
 import Board from '../components/Board/Board';
-import PalabraPresentada from '../components/PalabraPresentada';
+import PalabraPresentada from '../components/PalabraPresentada/PalabraPresentada';
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
 const sixteenDice = [
   'QBZJXL',
