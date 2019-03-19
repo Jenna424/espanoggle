@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
 import Board from '../components/Board/Board';
 import PalabraPresentada from '../components/PalabraPresentada';
-// blankBoard stores an array of 4 arrays, in which each nested array contains 4 null elements (to simulate a blank 4x4 boggle board)
-const blankBoard = new Array(4).fill(new Array(4).fill(null));
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
 const sixteenDice = [
   'QBZJXL',
