@@ -128,7 +128,7 @@ class BoggleGame extends Component {
   // (i.e. the last element in chosenCubes array)
   // A new game is in progress and NO cubes have been clicked yet
   isClickable = cube => {
-    if (this.state.status === 'over') { // If the game is over, I shouldn't be able to click a cube
+    if (this.state.status !== 'playing') {
       return false
     }
     // If palabraCreada is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
