@@ -140,13 +140,17 @@ class BoggleGame extends Component {
     return this.contiguousCubes(lastCubeChosen, cube)
   }
 
+  beginBoggle = () => {
+    alert('BEGINNING A BOGGLE GAME!')
+  }
+
   render() {
     return (
       <div className="ui-container">
         <h2 style={{textAlign: 'center', color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        <button>¡Comienza!</button>
+        <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
       </div>
     )
   }
