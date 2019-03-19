@@ -57,6 +57,7 @@ const buildBoard = () => {
 class BoggleGame extends Component {
   state = {
     board: buildBoard(),
+    lastCubeClicked: null,
     chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
     wordsOnBoard: [],
@@ -88,56 +89,78 @@ class BoggleGame extends Component {
   cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
   contiguousCubes = (cubeA, cubeB) => {
-    if (!this.cubeCopies(cubeA, cubeB)) {
+    if (this.cubeCopies(cubeA, cubeB)) {
+      return true
+    } else {
       const rowsApart = Math.abs(cubeA.r - cubeB.r);
       const columnsApart = Math.abs(cubeA.c - cubeB.c);
       return (rowsApart <= 1 && columnsApart <= 1)
     }
-    return false
   }
 
   isDefined = word => this.state.dictionary.includes(word)
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
-  // { r: row number, c: column number, landedLetter: string letter that landed side-up }
-  handleCubeClicked = cubeClicked => {
-    const { chosenCubes, palabraCreada } = this.state;
+  // { r: row number, c: column number, landedLetter: string letter that landed face-up }
+  //handleCubeClicked = cubeClicked => {
+    //const { chosenCubes, palabraCreada } = this.state;
     // create a copy of the array to maintain immutability
-    let chosenCubesCopy = chosenCubes.slice()
-    let modifiedCubesCopy, palabraModificada; // both are currently undefined
+    //let chosenCubesCopy = chosenCubes.slice()
+    //let modifiedCubesCopy, palabraModificada; // both are currently undefined
     // if the user clicks on the last letter cube that was just added to the word
-    if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
+    //if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
       // remove cube from copied array to indicate that its corresponding letter should NOT be included in the word being built
-      modifiedCubesCopy = chosenCubesCopy.slice(0, -1)
+      //modifiedCubesCopy = chosenCubesCopy.slice(0, -1)
       // remove the clicked cube's letter, i.e., the last string character in the wordBuilder string
-      palabraModificada = palabraCreada.slice(0, -1) // .slice() is nondestructive
-    } else { // the cube clicked on was not previously clicked
-      modifiedCubesCopy = [...chosenCubes, cubeClicked]
-      palabraModificada = palabraCreada.concat(cubeClicked.landedLetter) // .concat() is nondestructive
-    }
-    this.setState((prevState, props) => ({
-      chosenCubes: modifiedCubesCopy,
-      palabraCreada: palabraModificada
-    }))
+      //palabraModificada = palabraCreada.slice(0, -1) // .slice() is nondestructive
+    //} else { // the cube clicked on was not previously clicked
+      //modifiedCubesCopy = [...chosenCubes, cubeClicked]
+      //palabraModificada = palabraCreada.concat(cubeClicked.landedLetter) // .concat() is nondestructive
+    //}
+    //this.setState((prevState, props) => ({
+      //chosenCubes: modifiedCubesCopy,
+      //palabraCreada: palabraModificada
+    //}))
+  //}
+  handleCubeClicked = cubeClicked => {
+    this.setState(
+      prevState => {
+        if (prevState.status !== 'comenzado') {
+          return null;
+        }
+        const { chosenCubes, palabraCreada } = prevState;
+        let modifiedCubes, palabraModificada;
+        if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
+          modifiedCubes = chosenCubes.slice(0, -1)
+          palabraModificada = palabraCreada.slice(0, -1)
+        } else {
+          modifiedCubes = [...chosenCubes, cubeClicked]
+          palabraModificada = palabraCreada.concat(cubeClicked.landedLetter)
+        }
+        return {
+          chosenCubes: modifiedCubes,
+          palabraCreada: palabraModificada,
+          lastCubeClicked: modifiedCubes[modifiedCubes.length - 1]
+        }
+      }
+    )
   }
-  //~ My criteria for a clickable cube ~
-  // Adding a letter to the word: 
+  // My criteria for a clickable cube:
+  // A new game is in progress
+  // No word is currently being built
   // The previous letter cube that was added to the word (i.e. the last element in chosenCubes array) is
-  // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to the word
-  // Removing a letter from the word: 
+  // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to that word 
   // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word 
-  // (i.e. the last element in chosenCubes array)
-  // A new game is in progress and NO cubes have been clicked yet
   isClickable = cube => {
-    if (this.state.status !== 'playing') {
+    const { status, chosenCubes, lastCubeClicked } = this.state;
+    if (status !== 'comenzado') { // If I did NOT start the game (by clicking the COMIENZA button), I should NOT be able to click letter cubes!
       return false
     }
-    // If palabraCreada is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
-    if (!this.state.chosenCubes.length) {
+    
+    if (!chosenCubes.length) { // If no word is currently being built, every letter cube is clickable
       return true
     }
 
-    let lastCubeChosen = this.state.chosenCubes[this.state.chosenCubes.length - 1];
-    return this.contiguousCubes(lastCubeChosen, cube)
+    return this.contiguousCubes(lastCubeClicked, cube)
   }
 
   beginBoggle = () => {
@@ -164,7 +187,7 @@ class BoggleGame extends Component {
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
         {status === 'inicio' && <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>}
         {status === 'comenzado' && 
-        <button class="ui icon button">
+        <button className="ui icon button">
           <i class="hourglass half icon"></i>
           {countdown}
         </button>}
