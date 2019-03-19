@@ -61,8 +61,8 @@ class BoggleGame extends Component {
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
     wordsOnBoard: [],
     dictionary: [],
-    status: 'new',
-    initialCountdown: 180, // A single round of boggle lasts 3 minutes,
+    status: 'inicio',
+    countdown: 180, // A single round of boggle lasts 3 minutes,
     error: false
   }
 
@@ -141,16 +141,33 @@ class BoggleGame extends Component {
   }
 
   beginBoggle = () => {
-    alert('BEGINNING A BOGGLE GAME!')
+    this.setState({ status: 'comenzado' }, () => {
+      this.intervalId = setInterval(() => {
+        this.setState((prevState, props) => {
+          const decrementedCountdown = prevState.countdown - 1;
+          if (!decrementedCountdown) { // 0 is falsy in JS
+            clearInterval(this.intervalId) // so the countdown number doesn't become negative
+            return { status: 'terminado', countdown: 0 }
+          }
+          return { countdown: decrementedCountdown }
+        })
+      }, 1000)
+    })
   }
 
   render() {
+    const { status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
+        {status === 'inicio' && <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>}
+        {status === 'comenzado' && 
+        <button class="ui icon button">
+          <i class="hourglass half icon"></i>
+          {countdown}
+        </button>}
       </div>
     )
   }
