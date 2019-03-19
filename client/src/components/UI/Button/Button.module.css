@@ -1,0 +1,23 @@
+.boggleButton {
+  border: 1px solid #eee;
+  background-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  font: inherit;
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.success {
+  color: limegreen;
+}
+
+.warning {
+  color: orange;
+  background-color: lightyellow;
+}
+
+.danger {
+  color: red;
+}
