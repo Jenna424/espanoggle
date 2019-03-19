@@ -63,7 +63,7 @@ class BoggleGame extends Component {
     dictionary: [],
     status: 'new',
     initialCountdown: 180, // A single round of boggle lasts 3 minutes,
-    displayError: true
+    error: false
   }
 
   componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
@@ -146,13 +146,11 @@ class BoggleGame extends Component {
 
   render() {
     return (
-      <div class="ui-container">
-        <h2 style={{textAlign: 'center', color: 'red'}}><em>¡Españoggle!</em></h2>
+      <div style={{textAlign: 'center'}} className="ui-container">
+        <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        <footer>
-          <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
-        </footer>
+        <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
       </div>
     )
   }
