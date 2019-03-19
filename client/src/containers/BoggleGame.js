@@ -144,7 +144,7 @@ class BoggleGame extends Component {
       <div className="ui-container">
         <h2 style={{textAlign: 'center', color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
-        <WordBuilder palabraCreada={this.state.palabraCreada} />
+        <PalabraPresentada palabraCreada={this.state.palabraCreada} />
       </div>
     )
   }
