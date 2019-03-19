@@ -114,13 +114,11 @@ class BoggleGame extends Component {
       modifiedCubesCopy = [...chosenCubes, cubeClicked]
       modifiedWord = wordBuilder.concat(cubeClicked.landedLetter) // .concat() is nondestructive
     }
-    this.setState(state => {
-      return {
-        chosenCubes: modifiedCubesCopy,
-        wordBuilder: modifiedWord
-      }
-    })
-    console.log(wordBuilder)
+    this.setState((prevState, props) => ({
+      chosenCubes: modifiedCubesCopy,
+      wordBuilder: modifiedWord
+    }))
+    alert(chosenCubes)
   }
   //~ My criteria for a clickable cube ~
   // Adding a letter to the word: 
@@ -140,7 +138,7 @@ class BoggleGame extends Component {
     }
 
     let lastCubeChosen = this.state.chosenCubes[this.state.chosenCubes.length - 1];
-    return this.contiguousCubes(lastLetterChosen, cube)
+    return this.contiguousCubes(lastCubeChosen, cube)
   }
 
   render() {
