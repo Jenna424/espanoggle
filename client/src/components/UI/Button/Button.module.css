@@ -3,7 +3,7 @@
   background-color: transparent;
   border-radius: 5px;
   cursor: pointer;
-  font-family: inherit;
+  font: inherit;
   padding: 10px;
   font-weight: bold;
 }
