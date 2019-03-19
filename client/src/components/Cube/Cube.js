@@ -19,3 +19,5 @@ class Cube extends PureComponent {
     )
   }
 }
+
+export default Cube;
