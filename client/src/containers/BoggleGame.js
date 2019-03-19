@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
 import Board from '../components/Board/Board';
+import PalabraPresentada from '../components/PalabraPresentada';
 // blankBoard stores an array of 4 arrays, in which each nested array contains 4 null elements (to simulate a blank 4x4 boggle board)
 const blankBoard = new Array(4).fill(new Array(4).fill(null));
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
@@ -118,7 +119,6 @@ class BoggleGame extends Component {
       chosenCubes: modifiedCubesCopy,
       palabraCreada: palabraModificada
     }))
-    alert(chosenCubes)
   }
   //~ My criteria for a clickable cube ~
   // Adding a letter to the word: 
@@ -144,7 +144,7 @@ class BoggleGame extends Component {
   render() {
     return (
       <div className="ui-container">
-        <h2 style={{'textAlign': 'center'}}><em>¡Españoggle!</em></h2>
+        <h2 style={{textAlign: 'center', color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <WordBuilder palabraCreada={this.state.palabraCreada} />
       </div>
