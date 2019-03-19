@@ -63,7 +63,7 @@ class BoggleGame extends Component {
     dictionary: [],
     status: 'new',
     initialCountdown: 180, // A single round of boggle lasts 3 minutes,
-    error: false
+    displayError: true
   }
 
   componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
@@ -131,7 +131,7 @@ class BoggleGame extends Component {
     if (this.state.status === 'over') { // If the game is over, I shouldn't be able to click a cube
       return false
     }
-    // If wordBuilder is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
+    // If palabraCreada is an empty string, this.state.chosenCubes.length = 0, which is falsy in JS
     if (!this.state.chosenCubes.length) {
       return true
     }
@@ -146,11 +146,13 @@ class BoggleGame extends Component {
 
   render() {
     return (
-      <div className="ui-container">
+      <div class="ui-container">
         <h2 style={{textAlign: 'center', color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
+        <footer>
+          <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>
+        </footer>
       </div>
     )
   }
