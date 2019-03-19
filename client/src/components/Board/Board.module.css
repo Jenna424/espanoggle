@@ -1,8 +1,9 @@
 .board {
-  border: 5px solid #eee;
+  border: 5px solid gold;
   background-color: cornflowerblue;
   text-align: center;
   margin: 0 auto;
-  max-width: 300px;
-  height: 295px;
+  width: 170px;
+  padding: 3px;
+  height: 152px;
 }
