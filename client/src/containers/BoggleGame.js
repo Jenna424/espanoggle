@@ -160,8 +160,12 @@ class BoggleGame extends Component {
     })
   }
 
+  onPlayAgain = () => {
+    alert('Querés jugar de nuevo. ¡Qué bárbaro!')
+  }
+
   onDeclinePlayAgain = () => {
-    // resume here
+    alert('Gracias por jugar al Españoggle. ¡Adiós!')
   }
 
   render() {
@@ -169,7 +173,7 @@ class BoggleGame extends Component {
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
         <Modal viewable={status === 'terminado'} closed={this.onDeclinePlayAgain}>
-          <ScoreSummary wordsOnBoard={wordsOnBoard} />
+          <ScoreSummary wordsOnBoard={wordsOnBoard} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
