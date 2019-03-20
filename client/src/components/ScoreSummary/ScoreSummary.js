@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import styles from './ScoreSummary.module.css';
+import Button from '../components/UI/Button/Button';
 
-const ScoreSummary = ({ wordsOnBoard }) => {
-  const palabrasGanadas = Object.keys(wordsOnBoard).map(wordEntry =>
-    <li className={styles.word} key={wordEntry}><strong>{wordEntry}</strong>: {wordsOnBoard[wordEntry]}</li>
+const ScoreSummary = ({ palabrasFormadas }) => {
+  const palabrasGanadas = Object.keys(palabrasFormadas).map(palabra =>
+    <li className={styles.word} key={palabra}><strong>{palabra}</strong>: {palabrasFormadas[palabra]}</li>
   )
 
   return (
@@ -20,7 +21,7 @@ const ScoreSummary = ({ wordsOnBoard }) => {
 
       <strong>Puntuación Total</strong>:
 
-      <p>Vos has conseguido una suma de {Object.values(wordsOnBoard).reduce((acc, number) => acc + number, 0)} puntos.</p>
+      <p>Vos has conseguido una suma de {Object.values(palabrasFormadas).reduce((acc, number) => acc + number, 0)} puntos.</p>
 
   	  <p>¿Querés jugar al Españoggle otra vez?</p>
   	</Fragment>
