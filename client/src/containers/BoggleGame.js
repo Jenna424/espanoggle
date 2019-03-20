@@ -98,7 +98,7 @@ class BoggleGame extends Component {
 
   isValidLength = word => word.length >= 3 ? true : false
 
-  isUnique = word => !this.state.wordsOnBoard.includes(word)
+  isUnique = word => !this.state.palabrasFormadas.includes(word)
 
   cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
@@ -112,7 +112,7 @@ class BoggleGame extends Component {
     }
   }
 
-  isDefined = word => this.state.dictionary.includes(word)
+  isDefined = word => this.state.dictionary.includes(word.toLowerCase())
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed face-up }
   handleCubeClicked = cubeClicked => {
@@ -180,6 +180,15 @@ class BoggleGame extends Component {
   onDeclinePlayAgain = () => {
     this.setState({ status: 'inicio', ...initialState })
     alert('Gracias por jugar al Españoggle. ¡Adiós!')
+  }
+
+  handleWordSubmission = () => {
+    const word = this.state.palabraCreada;
+    if (this.isValidLength(word) && this.isUnique(word) && this.isDefined(word)) {
+      this.setState((prevState, props) => ({
+        palabrasFormadas: {...prevState.palabrasFormadas, word: word.length - 2}
+      }))
+    }
   }
 
   render() {
