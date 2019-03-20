@@ -1,0 +1,9 @@
+.backdrop {
+  left: 0; /* positioned in the upper-left corner */
+  top: 0;
+  position: fixed; /* even when I'm scrolling, the backdrop will stay in a fixed position */
+  background-color: rgba(0, 0, 0, 0.5); /* black color with 50% transparency */
+  width: 100%; /* backdrop covers everything (i.e. spans the entire width and height of the page) */
+  height: 100%;
+  z-index: 100; /* Since the Modal has a set index of 500, it will sit above the backdrop, which has a set index of 100 */
+}
