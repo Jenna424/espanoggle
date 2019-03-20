@@ -8,15 +8,14 @@
   font-weight: bold;
 }
 
-.success {
-  color: limegreen;
+.aprobar {
+  color: lightblue;
 }
 
-.warning {
-  color: orange;
-  background-color: lightyellow;
-}
-
-.danger {
+.rechazar {
   color: red;
+}
+
+.iniciar {
+  color: limegreen;
 }
