@@ -199,7 +199,7 @@ class BoggleGame extends Component {
           {countdown}
         </button>}
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
-        <PalabraPresentada palabraCreada={palabraCreada} />
+        <PalabraPresentada palabraCreada={palabraCreada} enviarPalabra={this.handleWordSubmission} />
       </div>
     )
   }
