@@ -9,5 +9,5 @@
   top: 30%;
   box-sizing: border-box;
   z-index: 500;
-  transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out; /* animation for showing/hiding the modal */
 }
