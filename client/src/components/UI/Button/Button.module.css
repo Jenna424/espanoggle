@@ -8,6 +8,8 @@
   padding: 7px;
   font-weight: bold;
   outline: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .aprobar {
@@ -23,5 +25,6 @@
 }
 
 .enviar {
-  color: red;
+  background-color: lavender;
+  color: black;
 }
