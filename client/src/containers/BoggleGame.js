@@ -178,7 +178,7 @@ class BoggleGame extends Component {
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        {status === 'inicio' && <Button buttonClick={this.beginBoggle} buttonType="success">¡Comienza!</Button>}
+        {status === 'inicio' && <Button buttonClick={this.beginBoggle} buttonType="iniciar">¡Comienza!</Button>}
         {status === 'comenzado' && 
         <button className="ui icon button">
           <i class="hourglass half icon"></i>
