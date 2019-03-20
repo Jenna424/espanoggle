@@ -183,21 +183,23 @@ class BoggleGame extends Component {
   }
 
   render() {
-    const { palabrasFormadas, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
+    const { palabrasFormadas, status, countdown, palabraCreada } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
         <Modal viewable={status === 'terminado'} closed={this.onDeclinePlayAgain}>
           <ScoreSummary palabrasFormadas={palabrasFormadas} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
-        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
-        <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        {status !== 'comenzado' && <Button buttonClick={this.beginBoggling} buttonType="iniciar">¡Comienza!</Button>}
+        <i class="argentina flag"></i>&nbsp;<span><em>La versión del juego Boggle en español</em></span>&nbsp;<i class="argentina flag"></i>
+        <br />
+        {status !== 'comenzado' && <Button buttonClick={this.beginBoggling} buttonType="iniciar">INICIO</Button>}
         {status === 'comenzado' && 
-        <button className="ui icon button">
+        <button style={{marginBottom: '5px', marginTop: '5px'}} className="ui icon button">
           <i className="hourglass half icon"></i>
           {countdown}
         </button>}
+        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
+        <PalabraPresentada palabraCreada={palabraCreada} />
       </div>
     )
   }
