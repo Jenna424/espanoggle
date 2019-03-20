@@ -5,6 +5,7 @@ import PalabraPresentada from '../components/PalabraPresentada/PalabraPresentada
 import Button from '../components/UI/Button/Button';
 import Modal from '../components/UI/Modal/Modal';
 import ScoreSummary from '../components/ScoreSummary/ScoreSummary';
+import PalabrasPresentadas from '../components/PalabrasPresentadas/PalabrasPresentadas';
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
 const sixteenDice = [
   'QBZJXL',
@@ -98,7 +99,8 @@ class BoggleGame extends Component {
 
   isValidLength = word => word.length >= 3 ? true : false
 
-  isUnique = word => !this.state.palabrasFormadas.includes(word)
+  isUnique = word => Object.keys(this.state.palabrasFormadas).length === 0 || 
+  (Object.keys(this.state.palabrasFormadas).length > 0 && !Object.keys(this.state.palabrasFormadas).includes(word))
 
   cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
@@ -112,7 +114,7 @@ class BoggleGame extends Component {
     }
   }
 
-  isDefined = word => this.state.dictionary.includes(word.toLowerCase())
+  //isDefined = word => this.state.dictionary.includes(word.toLowerCase())
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed face-up }
   handleCubeClicked = cubeClicked => {
@@ -184,9 +186,10 @@ class BoggleGame extends Component {
 
   handleWordSubmission = () => {
     const word = this.state.palabraCreada;
-    if (this.isValidLength(word) && this.isUnique(word) && this.isDefined(word)) {
-      this.setState((prevState, props) => ({
-        palabrasFormadas: {...prevState.palabrasFormadas, word: word.length - 2}
+    if (this.isValidLength(word) && this.isUnique(word)) {
+      this.setState(prevState => ({
+        palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
+        palabraCreada: ''
       }))
     }
   }
@@ -209,6 +212,7 @@ class BoggleGame extends Component {
         </button>}
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={palabraCreada} enviarPalabra={this.handleWordSubmission} />
+        <PalabrasPresentadas palabrasFormadas={palabrasFormadas} />
       </div>
     )
   }
