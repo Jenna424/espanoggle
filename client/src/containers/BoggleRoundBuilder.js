@@ -10,6 +10,18 @@ class BoggleRoundBuilder extends Component {
       roundId: prevState.roundId + 1
     }))
   )
+
+  render() {
+    const { roundId, buildNewRound } = this.state;
+    return (
+      <BoggleGame
+        key={roundId}
+        countdown={180}
+        restartAutomatically={roundId > 1}
+        iniciarPartidaNueva={buildNewRound}
+      />
+    )
+  }
 }
 
 export default BoggleRoundBuilder;
