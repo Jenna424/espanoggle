@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BoggleRoundBuilder from './containers/BoggleRoundBuilder';
+import BoggleGame from './containers/BoggleGame';
 
 ReactDOM.render(
-  <BoggleRoundBuilder />,
+  <BoggleGame />,
   document.getElementById('root')
 );
