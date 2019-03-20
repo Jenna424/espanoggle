@@ -64,7 +64,7 @@ class BoggleGame extends Component {
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
     wordsOnBoard: {},
     dictionary: [],
-    status: 'terminado',
+    status: 'inicio',
     countdown: 180, // A single round of boggle lasts 3 minutes,
     error: false
   }
