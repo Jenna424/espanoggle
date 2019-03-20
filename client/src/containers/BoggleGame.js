@@ -55,19 +55,23 @@ const buildBoard = () => {
   }
   return board;
 }
+// Declaring this initialState object makes it super easy for me to reset the game when the player clicks the play again button or the button to decline another round
+const initialState = {
+  board: buildBoard(),
+  lastCubeClicked: null,
+  chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
+  palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
+  palabrasFormadas: {},
+  countdown: 10, // A single round of boggle lasts 3 minutes (180 seconds)
+  error: false
+}
 
 class BoggleGame extends Component {
   state = {
-    board: buildBoard(),
-    lastCubeClicked: null,
-    chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
-    palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
-    palabrasFormadas: {},
-    dictionary: [],
+    ...initialState,
     status: 'inicio',
-    countdown: 180, // A single round of boggle lasts 3 minutes (180 seconds)
-    error: false
-  }
+    dictionary: [],
+  };
 
   componentDidMount() { // diccionario is my imported axios instance (see src/apis/diccionario.js file)
     diccionario.get('/palabras') // json-api follows RESTful resource route architecture - I'm retrieving the 'index' of dictionary words
@@ -154,7 +158,7 @@ class BoggleGame extends Component {
   }
 
   beginBoggling = () => {
-    this.setState({ status: 'comenzado', countdown: 10 }, () => {
+    this.setState({ status: 'comenzado', ...initialState}, () => {
       this.intervalId = setInterval(() => {
         this.setState((prevState, props) => {
           const decrementedCountdown = prevState.countdown - 1;
@@ -174,7 +178,7 @@ class BoggleGame extends Component {
   }
   
   onDeclinePlayAgain = () => {
-    this.setState({ status: 'inicio'})
+    this.setState({ status: 'inicio', ...initialState })
     alert('Gracias por jugar al Españoggle. ¡Adiós!')
   }
 
