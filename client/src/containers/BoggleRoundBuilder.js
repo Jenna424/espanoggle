@@ -17,8 +17,8 @@ class BoggleRoundBuilder extends Component {
       <BoggleGame
         key={roundId}
         countdown={180}
-        restartAutomatically={roundId > 1}
         jugarDeNuevo={buildNewRound}
+        reinicioInmediato={roundId > 1}
       />
     )
   }
