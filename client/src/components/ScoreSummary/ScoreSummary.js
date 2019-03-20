@@ -8,12 +8,12 @@ const ScoreSummary = ({ palabrasFormadas, onPlayAgain, onDeclinePlayAgain }) => 
   )
 
   return (
-  	<Fragment>
+    <Fragment>
       <p style={{color: 'red'}}><strong>¡Se acabó el juego!</strong></p>
 
-  	  <h3>El Recuento de Puntos</h3>
+      <h3>El Recuento de Puntos</h3>
 
-  	  <p><em>A continuación, podés encontrar una lista de palabras y sus respectivos valores númericos:</em></p>
+      <p><em>A continuación, podés encontrar una lista de palabras y sus respectivos valores númericos:</em></p>
 
       <ul className={styles.scrollable}>
         {palabrasGanadas}
@@ -23,11 +23,11 @@ const ScoreSummary = ({ palabrasFormadas, onPlayAgain, onDeclinePlayAgain }) => 
 
       <p>Vos has conseguido una suma de {Object.values(palabrasFormadas).reduce((acc, number) => acc + number, 0)} puntos.</p>
 
-  	  <p>¿Querés jugar al Españoggle otra vez?</p>
+      <p>¿Querés jugar al Españoggle otra vez?</p>
 
       <Button buttonClick={onPlayAgain} buttonType="aprobar">&nbsp;&nbsp;SÍ&nbsp;&nbsp;</Button>&nbsp;
       <Button buttonClick={onDeclinePlayAgain} buttonType="rechazar">NO</Button>
-  	</Fragment>
+    </Fragment>
   )
 }
 
