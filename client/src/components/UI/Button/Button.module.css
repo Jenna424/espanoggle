@@ -4,7 +4,8 @@
   border-radius: 5px;
   cursor: pointer;
   font: inherit;
-  padding: 10px;
+  font-size: 13px;
+  padding: 7px;
   font-weight: bold;
 }
 
@@ -18,4 +19,8 @@
 
 .iniciar {
   color: limegreen;
+}
+
+.enviar {
+  color: red;
 }
