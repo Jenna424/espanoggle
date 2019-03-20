@@ -65,7 +65,7 @@ class BoggleGame extends Component {
     palabrasFormadas: {},
     dictionary: [],
     status: 'inicio',
-    countdown: 10, // A single round of boggle lasts 3 minutes,
+    countdown: 180, // A single round of boggle lasts 3 minutes,
     error: false
   }
 
@@ -168,7 +168,7 @@ class BoggleGame extends Component {
     })
   }
 
-  onPlayAgain = () => {
+  jugarDeNuevo = () => {
     alert('Querés jugar de nuevo. ¡Qué bárbaro!')
   }
   
