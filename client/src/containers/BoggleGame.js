@@ -160,11 +160,15 @@ class BoggleGame extends Component {
     })
   }
 
+  onDeclinePlayAgain = () => {
+    // resume here
+  }
+
   render() {
     const { wordsOnBoard, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
-        <Modal viewable={status === 'terminado'}>
+        <Modal viewable={status === 'terminado'} closed={this.onDeclinePlayAgain}>
           <ScoreSummary wordsOnBoard={wordsOnBoard} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
