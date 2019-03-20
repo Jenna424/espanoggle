@@ -3,6 +3,8 @@ import diccionario from '../apis/diccionario'; // importing the axios instance t
 import Board from '../components/Board/Board';
 import PalabraPresentada from '../components/PalabraPresentada/PalabraPresentada';
 import Button from '../components/UI/Button/Button';
+import Modal from '../components/UI/Modal/Modal';
+import ScoreSummary from '../components/ScoreSummary/ScoreSummary';
 // sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
 const sixteenDice = [
   'QBZJXL',
@@ -60,7 +62,7 @@ class BoggleGame extends Component {
     lastCubeClicked: null,
     chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
-    wordsOnBoard: [],
+    wordsOnBoard: {},
     dictionary: [],
     status: 'inicio',
     countdown: 180, // A single round of boggle lasts 3 minutes,
@@ -159,9 +161,12 @@ class BoggleGame extends Component {
   }
 
   render() {
-    const { status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
+    const { wordsOnBoard, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
+        <Modal>
+          <ScoreSummary wordsOnBoard={wordsOnBoard} />
+        </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
