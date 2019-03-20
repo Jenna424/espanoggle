@@ -65,7 +65,7 @@ class BoggleGame extends Component {
     palabrasFormadas: {},
     dictionary: [],
     status: 'inicio',
-    countdown: this.props.countdown, // A single round of boggle lasts 3 minutes (180 seconds)
+    countdown: 180, // A single round of boggle lasts 3 minutes (180 seconds)
     error: false
   }
 
@@ -153,7 +153,7 @@ class BoggleGame extends Component {
     return this.contiguousCubes(lastCubeClicked, cube)
   }
 
-  beginBoggle = () => {
+  beginBoggling = () => {
     this.setState({ status: 'comenzado', countdown: 10 }, () => {
       this.intervalId = setInterval(() => {
         this.setState((prevState, props) => {
@@ -168,11 +168,13 @@ class BoggleGame extends Component {
     })
   }
 
-  jugarDeNuevo = () => {
-    alert('Querés jugar de nuevo. ¡Qué bárbaro!')
+  onPlayAgain = () => {
+    alert('Querés jugar de nuevo. ¡Qué bárbaro!\n...Preparado, listo, ¡ya!')
+    this.beginBoggling()
   }
   
   onDeclinePlayAgain = () => {
+    this.setState({ status: 'inicio'})
     alert('Gracias por jugar al Españoggle. ¡Adiós!')
   }
 
@@ -186,10 +188,10 @@ class BoggleGame extends Component {
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraPresentada palabraCreada={this.state.palabraCreada} />
-        {status !== 'comenzado' && <Button buttonClick={this.beginBoggle} buttonType="iniciar">¡Comienza!</Button>}
+        {status !== 'comenzado' && <Button buttonClick={this.beginBoggling} buttonType="iniciar">¡Comienza!</Button>}
         {status === 'comenzado' && 
         <button className="ui icon button">
-          <i class="hourglass half icon"></i>
+          <i className="hourglass half icon"></i>
           {countdown}
         </button>}
       </div>
