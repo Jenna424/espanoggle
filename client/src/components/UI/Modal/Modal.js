@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './Modal.module.css';
+import Backdrop from '../Backdrop/Backdrop';
 
 const Modal = props => (
-  <div 
-    className={styles.modal} 
-    style={{transform: props.viewable ? 'translateY(0)' : 'translateY(-100vh)', 
-    opacity: props.viewable ? '1' : '0'}}>
-   {props.children}
-  </div>
+  <Fragment>
+    <Backdrop viewable={props.viewable} hide={props.closed}/> // If the Modal is displayed, the Backdrop is also displayed
+    <div
+      className={styles.modal}
+      style={{transform: props.viewable ? 'translateY(0)' : 'translateY(-100vh)', 
+      opacity: props.viewable ? '1' : '0'}}>
+      {props.children}
+    </div>
+  </Fragment>
 )
 
 export default Modal;
