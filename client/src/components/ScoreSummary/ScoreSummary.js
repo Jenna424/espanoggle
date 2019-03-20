@@ -11,8 +11,8 @@ const ScoreSummary = ({ wordsOnBoard }) => {
   	  <h3>El Recuento de Puntos</h3>
 
   	  <p><em>A continuación, podés encontrar una lista de palabras y sus respectivos valores númericos:</em></p>
-     
-  	  <ul className={styles.scrollable}>
+
+      <ul className={styles.scrollable}>
         {palabrasGanadas}
       </ul>
 
