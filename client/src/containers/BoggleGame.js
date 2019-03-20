@@ -65,7 +65,7 @@ class BoggleGame extends Component {
     palabrasFormadas: {},
     dictionary: [],
     status: 'inicio',
-    countdown: 180, // A single round of boggle lasts 3 minutes,
+    countdown: this.props.countdown, // A single round of boggle lasts 3 minutes (180 seconds)
     error: false
   }
 
