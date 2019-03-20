@@ -64,7 +64,7 @@ class BoggleGame extends Component {
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
     wordsOnBoard: {},
     dictionary: [],
-    status: 'inicio',
+    status: 'terminado',
     countdown: 180, // A single round of boggle lasts 3 minutes,
     error: false
   }
@@ -164,7 +164,7 @@ class BoggleGame extends Component {
     const { wordsOnBoard, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
-        <Modal>
+        <Modal viewable={this.state.status === 'terminado'}>
           <ScoreSummary wordsOnBoard={wordsOnBoard} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
