@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import BoggleGame from './BoggleGame';
 
 class BoggleRoundBuilder extends Component {
   state = {
