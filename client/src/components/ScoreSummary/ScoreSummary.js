@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import styles from './ScoreSummary.module.css';
-import Button from '../components/UI/Button/Button';
+import Button from '../../components/UI/Button/Button';
 
-const ScoreSummary = ({ palabrasFormadas }) => {
+const ScoreSummary = ({ palabrasFormadas, onPlayAgain, onDeclinePlayAgain }) => {
   const palabrasGanadas = Object.keys(palabrasFormadas).map(palabra =>
     <li className={styles.word} key={palabra}><strong>{palabra}</strong>: {palabrasFormadas[palabra]}</li>
   )
@@ -24,6 +24,9 @@ const ScoreSummary = ({ palabrasFormadas }) => {
       <p>Vos has conseguido una suma de {Object.values(palabrasFormadas).reduce((acc, number) => acc + number, 0)} puntos.</p>
 
   	  <p>¿Querés jugar al Españoggle otra vez?</p>
+
+      <Button buttonClick={onPlayAgain} buttonType="aprobar">&nbsp;&nbsp;SÍ&nbsp;&nbsp;</Button>&nbsp;
+      <Button buttonClick={onDeclinePlayAgain} buttonType="rechazar">NO</Button>
   	</Fragment>
   )
 }
