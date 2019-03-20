@@ -62,7 +62,7 @@ class BoggleGame extends Component {
     lastCubeClicked: null,
     chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
     palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
-    wordsOnBoard: {},
+    palabrasFormadas: {},
     dictionary: [],
     status: 'inicio',
     countdown: 180, // A single round of boggle lasts 3 minutes,
@@ -169,11 +169,11 @@ class BoggleGame extends Component {
   }
 
   render() {
-    const { wordsOnBoard, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
+    const { palabrasFormadas, status, countdown } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
         <Modal viewable={status === 'terminado'} closed={this.onDeclinePlayAgain}>
-          <ScoreSummary wordsOnBoard={wordsOnBoard} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
+          <ScoreSummary palabrasFormadas={palabrasFormadas} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
