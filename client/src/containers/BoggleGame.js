@@ -26,8 +26,8 @@ const sixteenDice = [
   'UOTOÑN'
 ];
 
-// I'm using Fisher Yates algorithm to destructively shuffle the sixteenDice array of 16 strings
-const shakeTray = diceArray => {
+// I'm using Fisher Yates algorithm to shuffle the sixteenDice array of 16 strings
+const shakeDice = diceArray => {
   for (let i = 0; i < 16; i++) {
     let arbitraryIndex = Math.floor(Math.random() * 16);
     let temporaryValue = diceArray[i];
@@ -40,15 +40,15 @@ const shakeTray = diceArray => {
 const buildBoard = () => {
   const board = [];
   // shakenDice stores an array of shuffled string dice
-  const shakenDice = shakeTray(sixteenDice)
+  const shakenDice = shakeDice(sixteenDice)
   // landedLetters stores an array of 16 string letter elements, 
-  // in which each letter element is a randomly picked character from each string dice element in shakenDice array
-  // I'm trying to model the resulting collection of letters that landed face up when each die is rolled
+  // in which each letter element is a randomly picked character from each string die element in shakenDice array
+  // I'm trying to model the resulting collection of letters that landed face up upon rolling the dice
   const landedLetters = shakenDice.map(diceString => diceString[Math.floor(Math.random() * 6)])
-  for (let r = 0; r < 4; r++) {
+  for (let r = 0; r < 4; r++) { // Boggle board is 4x4 grid
     const row = []; // create a row
     for (let c = 0; c < 4; c++) { // this inner loop populates a single row
-      const landedLetter = landedLetters.pop();
+      const landedLetter = landedLetters.pop(); // removes & returns the last string letter in the array
       const cube = { r, c, landedLetter }; // object destructuring - accessing key/value pairs by just referencing the key names
       row.push(cube);
     }
@@ -56,20 +56,20 @@ const buildBoard = () => {
   }
   return board;
 }
-// Declaring this initialState object makes it super easy for me to reset the game when the player clicks the play again button or the button to decline another round
+// Declaring this initialState object will make it easier for me to reset the game when the player clicks the play again button or the button to decline another round
 const initialState = {
   board: buildBoard(),
   lastCubeClicked: null,
-  chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user has clicked on and thus activated, so that she can incorporate that letter in the word she is currently building
+  chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user selected during word formation
   palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
-  palabrasFormadas: {},
-  countdown: 10, // A single round of boggle lasts 3 minutes (180 seconds)
+  palabrasFormadas: {}, // Each key in this object is a valid string Spanish word, and its corresponding value is the number of points awarded for that particular word (i.e. number of characters in the word - 2).
+  countdown: 60, // For testing purposes, I'll set this to 60 seconds. In reality, a single round of boggle lasts 3 minutes, so I'll have to change this to 180
   error: false
 }
 
 class BoggleGame extends Component {
   state = {
-    ...initialState,
+    ...initialState, // using spread operator to copy over all key/value pairs from initialState object into the local state object of BoggleGame container class component
     status: 'inicio',
     dictionary: [],
   };
@@ -84,7 +84,7 @@ class BoggleGame extends Component {
       })
       .catch(error => { // handle error if dictionary entries fail to load
         this.setState({
-          error: true 
+          error: true // I'll implement this once I replace my json-server dummy data with actual entries from a Spanish dictionary...pending API key!
         })
       })
   }
@@ -104,7 +104,7 @@ class BoggleGame extends Component {
 
   cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
-  contiguousCubes = (cubeA, cubeB) => {
+  copiesOrContiguousCubes = (cubeA, cubeB) => {
     if (this.cubeCopies(cubeA, cubeB)) {
       return true
     } else {
@@ -113,8 +113,8 @@ class BoggleGame extends Component {
       return (rowsApart <= 1 && columnsApart <= 1)
     }
   }
-
-  //isDefined = word => this.state.dictionary.includes(word.toLowerCase())
+  // Will implement once I retrieve API key
+  isDefined = word => this.state.dictionary.includes(word.toLowerCase())
   // Below, cubeClicked argument passed to handleCubeClick callback arrow function = a JS cube object that looks like this: 
   // { r: row number, c: column number, landedLetter: string letter that landed face-up }
   handleCubeClicked = cubeClicked => {
@@ -125,12 +125,12 @@ class BoggleGame extends Component {
         }
         const { chosenCubes, palabraCreada } = prevState;
         let modifiedCubes, palabraModificada;
-        if (chosenCubes[chosenCubes.length - 1] === cubeClicked) {
-          modifiedCubes = chosenCubes.slice(0, -1)
+        if (chosenCubes[chosenCubes.length - 1] === cubeClicked) { // If the user clicked the cube that was just added to the word 
+          modifiedCubes = chosenCubes.slice(0, -1) // I'm still maintaining immutability because .slice() is NOT destructive
           palabraModificada = palabraCreada.slice(0, -1)
         } else {
           modifiedCubes = [...chosenCubes, cubeClicked]
-          palabraModificada = palabraCreada.concat(cubeClicked.landedLetter)
+          palabraModificada = palabraCreada.concat(cubeClicked.landedLetter) // this is okay because .concat() is nondestructive
         }
         return {
           chosenCubes: modifiedCubes,
@@ -141,23 +141,23 @@ class BoggleGame extends Component {
     )
   }
   // My criteria for a clickable cube:
-  // A new game is in progress
-  // No word is currently being built
+  // It's a brand new round of Españoggle.
+  // No word is currently being created.
   // The previous letter cube that was added to the word (i.e. the last element in chosenCubes array) is
   // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to that word 
   // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word 
   isClickable = cube => {
     const { status, chosenCubes, lastCubeClicked, palabraCreada } = this.state;
 
-    if (status !== 'comenzado') { // If I did NOT start the game (by clicking the COMIENZA button), I should NOT be able to click letter cubes!
+    if (status !== 'comenzado') { // If I did NOT start the game (by clicking botón de inicio), I should NOT be able to click letter cubes!
       return false
     }
     
-    if (!chosenCubes.length) { // If no word is currently being built, every letter cube is clickable
+    if (!chosenCubes.length) { // If no word is currently being created, every letter cube is clickable
       return true
     }
 
-    return this.contiguousCubes(lastCubeClicked, cube)
+    return this.copiesOrContiguousCubes(lastCubeClicked, cube)
   }
 
   iniciarJuego = () => {
@@ -187,7 +187,7 @@ class BoggleGame extends Component {
 
   handleWordSubmission = () => {
     const word = this.state.palabraCreada;
-    if (this.isValidLength(word) && this.isUnique(word)) {
+    if (this.isValidLength(word) && this.isUnique(word)) { // will add && this.isDefined(word) once I get my API key
       this.setState(prevState => ({
         palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
         palabraCreada: '',
