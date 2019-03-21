@@ -14,3 +14,18 @@ I want to implement the following functionality:
 1). Remove the cube from the clickedCubes array to indicate that its letter should NOT be included in the word being built
 2). Remove the clicked cube's letter from the wordBuilder string
 3). Change the color of the cube back to its default color
+
+----
+A cube is clickable if:
+- The previous clicked cube (i.e. the cube that was JUST clicked) to incorporate into the word can be the first cube clicked to remove it from the word
+- A new game is in progress & no cubes have been clicked yet
+- The previous cube that was clicked is adjacent (horizontally, vertically or diagonally) to the cube we're trying to click to add to the word
+- The user did not just hit the submit button
+
+- When are cubes disabled?
+- When dealing with clicked cubes that we want to remove from the word,
+we can only click the cube that we JUST added to the word.
+- A game is NOT in progress
+- When the clicked cube corresponding to the last letter in the wordBuilder string
+is NOT adjacent to the cube we want to click next, the cube we want to click is disabled and we can't click it
+- When the user clicked the submit button to submit the word
