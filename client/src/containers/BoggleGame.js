@@ -147,19 +147,20 @@ class BoggleGame extends Component {
   // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to that word 
   // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word 
   isClickable = cube => {
-    const { status, chosenCubes, lastCubeClicked } = this.state;
+    const { status, chosenCubes, lastCubeClicked, palabraCreada } = this.state;
+
     if (status !== 'comenzado') { // If I did NOT start the game (by clicking the COMIENZA button), I should NOT be able to click letter cubes!
       return false
     }
     
-    if (!chosenCubes.length) { // If no word is currently being built, every letter cube is clickable
+    if (!chosenCubes.length)  { // If no word is currently being built, every letter cube is clickable
       return true
     }
 
     return this.contiguousCubes(lastCubeClicked, cube)
   }
 
-  beginBoggling = () => {
+  iniciarJuego = () => {
     this.setState({ status: 'comenzado', ...initialState}, () => {
       this.intervalId = setInterval(() => {
         this.setState((prevState, props) => {
@@ -176,12 +177,12 @@ class BoggleGame extends Component {
 
   onPlayAgain = () => {
     alert('Querés jugar de nuevo. ¡Qué bárbaro!\n...Preparado, listo, ¡ya!')
-    this.beginBoggling()
+    this.iniciarJuego()
   }
   
   onDeclinePlayAgain = () => {
     this.setState({ status: 'inicio', ...initialState })
-    alert('Gracias por jugar al Españoggle. ¡Adiós!')
+    alert('Gracias por jugar al Españoggle. ¡Chau!')
   }
 
   handleWordSubmission = () => {
@@ -189,29 +190,30 @@ class BoggleGame extends Component {
     if (this.isValidLength(word) && this.isUnique(word)) {
       this.setState(prevState => ({
         palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
-        palabraCreada: ''
+        palabraCreada: '',
+        chosenCubes: []
       }))
     }
   }
 
   render() {
-    const { palabrasFormadas, status, countdown, palabraCreada } = this.state; // I'm using object destructuring to retrieve values stored in BoggleGame's local state
+    const { palabrasFormadas, status, countdown, palabraCreada } = this.state;
     return (
       <div style={{textAlign: 'center'}} className="ui-container">
         <Modal viewable={status === 'terminado'} closed={this.onDeclinePlayAgain}>
           <ScoreSummary palabrasFormadas={palabrasFormadas} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
-        <i class="argentina flag"></i>&nbsp;<span><em>La versión del juego Boggle en español</em></span>&nbsp;<i class="argentina flag"></i>
+        <i class="argentina flag"></i>&nbsp;<span><em>Una versión del juego Boggle al estilo español</em></span>&nbsp;<i class="argentina flag"></i>
         <br />
-        {status !== 'comenzado' && <Button buttonClick={this.beginBoggling} buttonType="iniciar">INICIO</Button>}
+        {status !== 'comenzado' && <Button handleButtonClick={this.iniciarJuego} buttonType="iniciar">INICIO</Button>}
         {status === 'comenzado' && 
         <button style={{marginBottom: '5px', marginTop: '5px'}} className="ui icon button">
           <i className="hourglass half icon"></i>
           {countdown}
         </button>}
         <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
-        <PalabraPresentada palabraCreada={palabraCreada} enviarPalabra={this.handleWordSubmission} />
+        <PalabraFormada palabraCreada={palabraCreada} enviarPalabra={this.handleWordSubmission} />
         <PalabrasPresentadas palabrasFormadas={palabrasFormadas} />
       </div>
     )
