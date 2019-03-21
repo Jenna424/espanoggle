@@ -153,7 +153,7 @@ class BoggleGame extends Component {
       return false
     }
     
-    if (!chosenCubes.length)  { // If no word is currently being built, every letter cube is clickable
+    if (!chosenCubes.length) { // If no word is currently being built, every letter cube is clickable
       return true
     }
 
