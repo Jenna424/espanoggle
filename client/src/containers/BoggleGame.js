@@ -150,7 +150,8 @@ class BoggleGame extends Component {
   // No word is currently being created.
   // The previous letter cube that was added to the word (i.e. the last element in chosenCubes array) is
   // adjacent (horizontally, vertically or diagonally) to the letter cube that I want to click to append to that word 
-  // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word 
+  // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word
+  // A single letter cube should not be used more than once in a given word 
   isClickable = cube => {
     const { status, chosenCubes, lastCubeClicked, palabraCreada } = this.state;
 
@@ -190,13 +191,28 @@ class BoggleGame extends Component {
     alert('Gracias por jugar al Españoggle. ¡Chau!')
   }
 
+  // Below, my letterCubes variable stores the array of cube objects that comprise the word that the user is trying to submit.
+  // Self-reminder: each cube object in this array has key/value pairs for r, c, landedLetter
+  // I must ensure that a letter cube is not duplicated in a given word
+  // Using .map(), I'll return an array in which each element is the string row followed by the string column of a given cube object
+  // Then I'll use ES6 Set object to see if the array is unique, which will indicate that a word does not contain duplicate cubes.
+  uniqueCubesCompriseWord = () => {
+    const letterCubes = this.state.chosenCubes;
+    const stringCubeCoordinates = letterCubes.map(cube => `${cube.r}${cube.c}`);
+    return stringCubeCoordinates.length === new Set(stringCubeCoordinates).size;
+  }
+
   handleWordSubmission = () => {
     const word = this.state.palabraCreada;
-    if (this.isValidLength(word) && this.isUnique(word)) { // will add && this.isDefined(word) once I get my API key
+    if (this.isValidLength(word) && this.isUnique(word) && this.uniqueCubesCompriseWord()) { // will add && this.isDefined(word) once I get my API key
       this.setState(prevState => ({
         palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
         palabraCreada: '',
         chosenCubes: []
+      }))
+    } else {
+      this.setState(prevState => ({
+        ...prevState, palabraCreada: '', chosenCubes: []
       }))
     }
   }
@@ -209,7 +225,7 @@ class BoggleGame extends Component {
           <ScoreSummary palabrasFormadas={palabrasFormadas} onPlayAgain={this.onPlayAgain} onDeclinePlayAgain={this.onDeclinePlayAgain} />
         </Modal>
         <h2 style={{color: 'red'}}><em>¡Españoggle!</em></h2>
-        <i class="argentina flag"></i>&nbsp;<span><em>Una versión del juego Boggle al estilo español</em></span>&nbsp;<i class="argentina flag"></i>
+        <i className="argentina flag"></i>&nbsp;<span><em>Una versión del juego Boggle al estilo español</em></span>&nbsp;<i className="argentina flag"></i>
         <br />
         {status !== 'comenzado' && <Button handleButtonClick={this.iniciarJuego} buttonType="iniciar">INICIO</Button>}
         {status === 'comenzado' && 
