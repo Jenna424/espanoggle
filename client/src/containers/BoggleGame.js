@@ -153,7 +153,7 @@ class BoggleGame extends Component {
   // The cube that I want to click to REMOVE from the word is the cube that I JUST added to the word
   // A single letter cube should not be used more than once in a given word 
   isClickable = cube => {
-    const { status, chosenCubes, lastCubeClicked, palabraCreada } = this.state;
+    const { status, chosenCubes, lastCubeClicked } = this.state;
 
     if (status !== 'comenzado') { // If I did NOT start the game (by clicking botón de inicio), I should NOT be able to click letter cubes!
       return false
