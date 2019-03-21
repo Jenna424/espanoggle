@@ -48,12 +48,12 @@ const buildBoard = () => {
   const shakenDice = shakeDice(sixteenDice)
   // landedLetters stores an array of 16 string letter elements, 
   // in which each letter element is a randomly picked character from each string die element in shakenDice array
-  // I'm trying to model the resulting collection of letters that landed face up upon rolling the dice
+  // I'm trying to model the resulting collection of letters that landed face up upon jostling the tray of dice
   const landedLetters = shakenDice.map(diceString => diceString[Math.floor(Math.random() * 6)])
-  for (let r = 0; r < 4; r++) { // Boggle board is 4x4 grid
+  for (let r = 0; r < 4; r++) { // Boggle board is 4 row x 4 column grid
     const row = []; // create a row
     for (let c = 0; c < 4; c++) { // this inner loop populates a single row
-      const landedLetter = landedLetters.pop(); // removes & returns the last string letter in the array
+      const landedLetter = landedLetters.pop(); // .pop() removes & returns the last string letter in the array
       const cube = { r, c, landedLetter }; // object destructuring - accessing key/value pairs by just referencing the key names
       row.push(cube);
     }
@@ -61,9 +61,8 @@ const buildBoard = () => {
   }
   return board;
 }
-// Declaring this initialState object will make it easier for me to reset the game when the player clicks the play again button or the button to decline another round
+// Declaring this initialState object will make it easier for me to reset the game when the player clicks the button to play again or the button to decline another round
 const initialState = {
-  board: buildBoard(),
   lastCubeClicked: null,
   chosenCubes: [], // an array of JS cube objects. Each cube object element in this array represents a letter cube on the board that the user selected during word formation
   palabraCreada: '', // the string Spanish word that the user is creating by clicking cubes on the boggle board
@@ -74,6 +73,7 @@ const initialState = {
 
 class BoggleGame extends Component {
   state = {
+    board: buildBoard(),
     ...initialState, // using spread operator to copy over all key/value pairs from initialState object into the local state object of BoggleGame container class component
     status: 'inicio',
     dictionary: [],
@@ -166,7 +166,7 @@ class BoggleGame extends Component {
   }
 
   iniciarJuego = () => {
-    this.setState({ status: 'comenzado', ...initialState}, () => {
+    this.setState({ status: 'comenzado', board: buildBoard(), ...initialState}, () => {
       this.intervalId = setInterval(() => {
         this.setState((prevState, props) => {
           const decrementedCountdown = prevState.countdown - 1;
@@ -186,7 +186,7 @@ class BoggleGame extends Component {
   }
   
   onDeclinePlayAgain = () => {
-    this.setState({ status: 'inicio', ...initialState })
+    this.setState({ status: 'inicio', board: buildBoard(), ...initialState })
     alert('Gracias por jugar al Españoggle. ¡Chau!')
   }
 
