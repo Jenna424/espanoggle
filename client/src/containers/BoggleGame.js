@@ -6,7 +6,7 @@ import PalabrasPresentadas from '../components/PalabrasPresentadas/PalabrasPrese
 import Button from '../components/UI/Button/Button';
 import Modal from '../components/UI/Modal/Modal';
 import ScoreSummary from '../components/ScoreSummary/ScoreSummary';
-// sixteenDice stores an array of 16 strings to represent 16 dice. Each string has 6 characters b/c a single cubic die has 6 sides
+// sixteenDice stores an array of 16 strings that represent 16 dice. Each string has 6 characters because a single cubic die has 6 sides.
 const sixteenDice = [
   'QBZJXL',
   'TOUOTO',
@@ -28,13 +28,18 @@ const sixteenDice = [
 
 // I'm using Fisher Yates algorithm to shuffle the sixteenDice array of 16 strings
 const shakeDice = diceArray => {
+  // First I'll use .slice() to copy the original diceArray to maintain its immutability. I'll modify the copied version.
+  let copiedDice = diceArray.slice()
+  // Time to shuffle!
   for (let i = 0; i < 16; i++) {
+    // select a random index between i and the index position of the last element, inclusively
     let arbitraryIndex = Math.floor(Math.random() * 16);
-    let temporaryValue = diceArray[i];
-    diceArray[i] = diceArray[arbitraryIndex];
-    diceArray[arbitraryIndex] = temporaryValue;
+    // swap the elements at those indices
+    let temporaryValue = copiedDice[i];
+    copiedDice[i] = copiedDice[arbitraryIndex];
+    copiedDice[arbitraryIndex] = temporaryValue;
   }
-  return diceArray;
+  return copiedDice;
 }
 
 const buildBoard = () => {
