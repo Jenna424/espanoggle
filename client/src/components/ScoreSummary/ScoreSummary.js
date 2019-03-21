@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import styles from './ScoreSummary.module.css';
 import Button from '../../components/UI/Button/Button';
 import PalabrasPresentadas from '../../components/PalabrasPresentadas/PalabrasPresentadas';
 
