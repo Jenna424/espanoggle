@@ -206,6 +206,7 @@ class BoggleGame extends Component {
     const word = this.state.palabraCreada;
     if (this.isValidLength(word) && this.isUnique(word) && this.uniqueCubesCompriseWord()) { // will add && this.isDefined(word) once I get my API key
       this.setState(prevState => ({
+        ...prevState,
         palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
         palabraCreada: '',
         chosenCubes: []
