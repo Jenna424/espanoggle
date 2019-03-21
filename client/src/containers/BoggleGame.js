@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import diccionario from '../apis/diccionario'; // importing the axios instance that I created, which I'll refer to as diccionario
 import Board from '../components/Board/Board';
-import PalabraPresentada from '../components/PalabraPresentada/PalabraPresentada';
+import PalabraFormada from '../components/PalabraFormada/PalabraFormada';
 import Button from '../components/UI/Button/Button';
 import Modal from '../components/UI/Modal/Modal';
 import ScoreSummary from '../components/ScoreSummary/ScoreSummary';
