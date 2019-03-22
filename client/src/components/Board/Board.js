@@ -12,9 +12,6 @@ const Board = ({ board, handleCubeClicked, isClickable }) => {
               <Cube
                 key={cubeObject.c}
                 cube={cubeObject}
-                //rowNum={cubeObject.r} 
-                //colNum={cubeObject.c}
-                character={cubeObject.landedLetter}
                 handleCubeClicked={handleCubeClicked}
                 isClickable={isClickable} />
             )
@@ -41,10 +38,9 @@ export default Board;
 // render a Cube functional component
 // When each Cube child component is rendered from inside the .map() iteration, it receives this object as its props:
 // { 
-//   rowNum: row number, 
-//   colNum: column number, 
-//   character: "string letter that landed face up", 
+//   cube: current cube object in the iteration, which contains row number (r), column number (c), string letter that landed face up (landedLetter) 
 //   handleCubeClick: callback arrow function object 
 // }
+// I should only pass down the minimal amount of props necessary from parent to child, but Cube component needs r, c AND landedLetter
 // The resulting JSX from rendering the array of Cube components will be injected into the <div> to populate the game board
 */
