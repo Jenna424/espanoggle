@@ -1,6 +1,6 @@
-##*¡Españoggle!*
+## *¡Españoggle!*
 
-*Una adaptación del juego Boggle al estilo español por Jenna Leopold*
+###### *Una adaptación del juego Boggle al estilo español por Jenna Leopold*
 
 So far, I have achieved the following functionality:
 * When the page is initially loaded, the user cannot select any cube until the start (INICIO) button has been clicked
