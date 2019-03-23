@@ -31,3 +31,12 @@ const ScoreSummary = ({ palabrasFormadas, onPlayAgain, onDeclinePlayAgain }) => 
 }
 
 export default ScoreSummary;
+
+// Note to self: 
+// perhaps I should extract functions for calculating the sum of points earned 
+// and the word worth the most points in my BoggleGame container class component
+// since ScoreSummary is a presentational stateless functional component and I want to limit the amount of logic I have in here
+// stateless functional components should just receive props and render JSX
+// I included it here because it's very easy to compute - a word is worth 2 points less than the number of characters it contains
+// Another thing to consider:
+// Should the score be stored in the local state of my BoggleGame class component since it changes throughout the course of my application
