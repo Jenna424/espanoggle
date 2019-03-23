@@ -9,7 +9,7 @@ So far, I have achieved the following functionality:
 ###### Note to self: the duration of a round of Boggle is typically 3 minutes, so I can eventually change this to 180 seconds (or convert it to minutes so that it's a better user experience)
 
 * Once the countdown begins, the user can click any cube on the Boggle board (since none has been selected yet),
-and the instructions (***"Haz clic en los cubos..."***) that were formerly displayed are swapped for the letter corresponding to the clicked cube.
+and the instructions (*"Haz clic en los cubos..."*) that were formerly displayed are swapped for the letter corresponding to the clicked cube.
 * The letter corresponding to the clicked cube will appear on the screen below the board 
 (formation of palabraCreada stored in BoggleBoard local state).
 * Once a cube is clicked, other letter cubes *cannot* be selected *unless* they are contiguous 
