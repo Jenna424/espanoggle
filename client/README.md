@@ -27,7 +27,7 @@ or *unless* the cube you want to *deselect* is the immediately preceding cube.
 * If the user submitted valid words during the round of *Españoggle*, the Modal will:
 1. display each word beside its respective number of points awarded
 1. display the word worth the most points (la jugada mejor)
-* Whether or not the user submitted any valid word during theround of *Españoggle*, the Modal will:
+* Whether or not the user submitted any valid word during the round of *Españoggle*, the Modal will:
 1. present the grand sum of all points (la puntuación total)
 1. display a button to play again and a button to decline another round
 * If the user clicks the button to play again (jugar de nuevo), she receives an alert message that reads, "Ready, set, go!" (*"Preparado, listo, "¡ya!"*) and upon clicking OK, the letter cubes on the board are shuffled, the timer *automatically* resets itself, and a new game begins *without* the user having to click the INICIO button.
