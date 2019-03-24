@@ -11,7 +11,7 @@ So far, I have achieved the following functionality:
 * Once the countdown begins, the user can click any cube on the Boggle board (since none has been selected yet),
 and the instructions (*"Haz clic en los cubos..."*) that were formerly displayed are swapped for the letter corresponding to the clicked cube.
 * The letter corresponding to the clicked cube will appear on the screen below the board 
-(formation of palabraCreada stored in BoggleBoard local state).
+(formation of palabraCreada stored in BoggleGame container class component's local state).
 * Once a cube is clicked, other letter cubes *cannot* be selected *unless* they are contiguous 
 (adjacent horizontally, vertically or diagonally),
 or *unless* the cube you want to *deselect* is the immediately preceding cube.
@@ -20,9 +20,9 @@ or *unless* the cube you want to *deselect* is the immediately preceding cube.
 * The submit (ENVIAR) button does *not* appear *until* the word being formed (palabraCreada) is *at least* 3 letters in length 
 (to guard against submission of an invalid word that's less than 3 characters long)
 * Once a word that's a *minimum* of 3 characters *has* been submitted, it will *only* be appended to the list of played words if the following conditions are met:
-1. The word is unique, i.e., *no* key/value pair of data for this word exists in the palabrasFormadas object stored in BoggleBoard's local state
+1. The word is unique, i.e., *no* key/value pair of data for this word exists in the palabrasFormadas object stored in BoggleGame's local state
 1. The letter cubes that comprise the word are *not* duplicated, e.g., if you submit the word "AGUA", it will *not* be considered a valid submission if the cube corresponding to the first letter "A" is the same as that of the last letter "A"
-1. Pending API key retrieval, I should check that the word submitted is, in fact, a valid Spanish word. Using my custom axios instance, I can make a request to a remote API in componentDidMount() lifecycle method to retrieve a list of valid Spanish words from a dictionary. Then I'll store the array of words retrieved in BoggleBoard's local state object. I'll normalize the palabraCreada submitted by the user, e.g., maybe convert the word to all lowercase letters, before comparing the submitted word against the dictionary entries to check if that word exists in the dictionary.
+1. Pending API key retrieval, I should check that the word submitted is, in fact, a valid Spanish word. Using my custom axios instance, I can make a request to a remote API in componentDidMount() lifecycle method to retrieve a list of valid Spanish words from a dictionary. Then I'll store the array of words retrieved in BoggleGame's local state object. I'll normalize the palabraCreada submitted by the user, e.g., maybe convert the word to all lowercase letters, before comparing the submitted word against the dictionary entries to check if that word exists in the dictionary.
 * Once the timer is up, a modal will slide onto the page (superimposed on a backdrop).
 * If the user submitted valid words during the round of *Españoggle*, the Modal will:
 1. display each word beside its respective number of points awarded
