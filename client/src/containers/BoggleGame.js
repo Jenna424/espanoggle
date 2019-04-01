@@ -110,8 +110,10 @@ class BoggleGame extends Component {
   cubeCopies = (cube1, cube2) => (cube1.r === cube2.r && cube1.c === cube2.c) ? true : false
 
   copiesOrContiguousCubes = (cubeA, cubeB) => {
-    if (this.cubeCopies(cubeA, cubeB)) {
+    if (this.cubeCopies(cubeA, cubeB)) { // If I'm clicking the last cube clicked to deselect it 
       return true
+    } else if (this.state.chosenCubes.includes(cubeB)) {
+      return false
     } else {
       const rowsApart = Math.abs(cubeA.r - cubeB.r);
       const columnsApart = Math.abs(cubeA.c - cubeB.c);
