@@ -2,7 +2,7 @@ import React from 'react';
 import Cube from '../Cube/Cube';
 import styles from './Board.module.css';
 
-const Board = ({ board, handleCubeClicked, isClickable }) => {
+const Board = ({ board, handleCubeClicked, isClickable, chosenCubes }) => {
   return (
     <div className={styles.board}>
       {board.map((row, rowIndex) => 
@@ -12,6 +12,7 @@ const Board = ({ board, handleCubeClicked, isClickable }) => {
               <Cube
                 key={cubeObject.c}
                 cube={cubeObject}
+                chosenCubes={chosenCubes}
                 handleCubeClicked={handleCubeClicked}
                 isClickable={isClickable} />
             )
