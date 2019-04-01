@@ -10,11 +10,18 @@ export default class Cube extends PureComponent {
   }
 
   render() {
+    const { chosenCubes, cube } = this.props;
+    const cubeClasses = ['tiny ui button', styles.cube];
+    
+    if (chosenCubes.includes(cube)) {
+      cubeClasses.push('tiny ui yellow button')
+    }
+
     return (
       <div>
         <button 
-          className={`tiny ui button ${styles.cube}`} 
-          onClick={this.handleOnClick}>{this.props.cube.landedLetter}
+          className={cubeClasses.join(' ')}
+          onClick={this.handleOnClick}>{cube.landedLetter}
         </button>
       </div>
     )
