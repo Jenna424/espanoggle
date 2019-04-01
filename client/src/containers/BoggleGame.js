@@ -236,7 +236,7 @@ class BoggleGame extends Component {
           <i className="hourglass half icon"></i>
           {countdown}
         </button>}
-        <Board board={this.state.board} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
+        <Board board={this.state.board} chosenCubes={this.state.chosenCubes} handleCubeClicked={this.handleCubeClicked} isClickable={this.isClickable} />
         <PalabraFormada palabraCreada={palabraCreada} enviarPalabra={this.handleWordSubmission} />
         <PalabrasPresentadas palabrasFormadas={palabrasFormadas} palabraCreada={palabraCreada} />
       </div>
