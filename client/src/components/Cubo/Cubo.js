@@ -39,3 +39,5 @@ class Cubo extends Component {
     )
   }
 }
+
+export default Cubo;
