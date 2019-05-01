@@ -19,5 +19,5 @@ export default App;
 {/*
 // For implementation without drag-to-select, add:
 // import BoggleGame from './containers/BoggleGame';
-// <Route path="/jugar" component={BoggleGame} />
+// <Route path="/" component={BoggleGame} />
 */}
