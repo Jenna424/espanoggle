@@ -12,8 +12,8 @@ const Navbar = () => (
     <div className="item" style={{ backgroundColor: 'lightyellow' }}>
       <i className="argentina flag"></i>
     </div>
-    <NavLink to="/reglas" className="item" activeStyle={highlight}>Reglas del Juego</NavLink>
-    <NavLink to="/jugar" className="item" activeStyle={highlight}>Españogglear</NavLink>
+    <NavLink exact to="/reglas" className="item" activeStyle={highlight}>Reglas del Juego</NavLink>
+    <NavLink exact to="/" className="item" activeStyle={highlight}>Jugar al Españoggle</NavLink>
   </div>
 )
 
