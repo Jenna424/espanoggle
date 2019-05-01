@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styles from './Cubo.module.css';
 
 class Cubo extends Component {
-  handleOnMouseDown= event => {
+  handleOnMouseDown = event => {
     this.props.handleButtonDepressed(this.props.cube)
   }
 
