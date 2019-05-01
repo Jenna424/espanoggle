@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import Cubo from '../Cubo/Cubo';
-import PalabraFormada from '../components/PalabraFormada/PalabraFormada';
-import PalabrasPresentadas from '../components/PalabrasPresentadas/PalabrasPresentadas';
+import Cubo from '../../components/Cubo/Cubo';
+import PalabraFormada from '../../components/PalabraFormada/PalabraFormada';
+import PalabrasPresentadas from '../../components/PalabrasPresentadas/PalabrasPresentadas';
+import styles from './TableroDeJuego.module.css';
 
 // TableroDeJuego is a React container class component. Therefore, I can define a local state.
 class TableroDeJuego extends Component {
