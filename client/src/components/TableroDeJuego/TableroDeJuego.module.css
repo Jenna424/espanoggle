@@ -1,0 +1,9 @@
+.tableroDeJuego {
+  border: 5px solid gold;
+  background-color: cornflowerblue;
+  text-align: center;
+  margin: 0 auto;
+  width: 170px;
+  padding: 3px;
+  height: 152px;
+}
