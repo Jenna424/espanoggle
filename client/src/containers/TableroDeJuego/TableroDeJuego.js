@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import Cubo from '../../components/Cubo/Cubo';
 import PalabraFormada from '../../components/PalabraFormada/PalabraFormada';
 import PalabrasPresentadas from '../../components/PalabrasPresentadas/PalabrasPresentadas';
+import Modal from '../../components/UI/Modal/Modal';
+import ScoreSummary from '../../components/ScoreSummary/ScoreSummary';
 import styles from './TableroDeJuego.module.css';
 
 // TableroDeJuego is a React container class component. Therefore, I can define a local state.
@@ -99,8 +101,14 @@ class TableroDeJuego extends Component {
 
   render() {
     const { palabraCreada, palabrasFormadas } = this.state;
+    const { status, onPlayAgain, onDeclinePlayAgain } = this.props;
     return (
       <Fragment>
+        <div style={{textAlign: 'center'}}>
+          <Modal viewable={status === 'terminado'} closed={onDeclinePlayAgain}>
+            <ScoreSummary palabrasFormadas={palabrasFormadas} onPlayAgain={onPlayAgain} onDeclinePlayAgain={onDeclinePlayAgain} />
+          </Modal>
+        </div>
         <div className={styles.tableroDeJuego}>
           {this.props.board.map((row, rowIndex) =>
             <div key={rowIndex} style={{display: 'flex'}}>
