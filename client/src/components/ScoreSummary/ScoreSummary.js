@@ -14,7 +14,7 @@ const ScoreSummary = ({ palabrasFormadas, onPlayAgain, onDeclinePlayAgain }) => 
       <strong>Puntuación Total</strong>:
 
       <p>
-        Vos has conseguido una suma de {Object.values(palabrasFormadas).map(stringNum => parseInt(stringNum)).reduce((acc, number) => acc + number, 0)} puntos.
+        Vos has conseguido una suma de {Object.values(palabrasFormadas).map(stringNum => parseInt(stringNum)).reduce((acc, number) => acc + number, 0)} punto(s).
       </p>
 
       {Object.keys(palabrasFormadas).length > 0 && 
