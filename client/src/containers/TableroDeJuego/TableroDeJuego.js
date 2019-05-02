@@ -66,18 +66,20 @@ class TableroDeJuego extends Component {
 
   enviarPalabra = () => {
     const word = this.state.palabraCreada;
-    if (this.isValidLength(word) && this.isUnique(word)) {
+    if (this.state.dragging && this.isValidLength(word) && this.isUnique(word)) {
       this.setState(prevState => ({
         ...prevState,
         palabrasFormadas: {...prevState.palabrasFormadas, [word]: [word.length - 2]},
         palabraCreada: '',
-        chosenCubes: []
+        chosenCubes: [],
+        dragging: !prevState.dragging // dragging: false
       }))
     } else {
       this.setState(prevState => ({
         ...prevState, 
         palabraCreada: '', 
-        chosenCubes: []
+        chosenCubes: [],
+        dragging: !prevState.dragging // dragging: false
       }))
     }
   }
