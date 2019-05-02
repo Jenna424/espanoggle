@@ -58,6 +58,10 @@ class TableroDeJuego extends Component {
       chosenCubes: [cube],
       palabraCreada: cube.landedLetter
     })
+
+    //this.setState(prevState => ({
+      //dragging: !prevState.dragging
+    //}));
   }
 
   enviarPalabra = () => {
