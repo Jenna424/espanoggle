@@ -8,7 +8,7 @@ const Reglas = () => (
     <br />
     <h3>Instrucciones para Seleccionar Cubos con el Ratón</h3>
     <p><em>~ Haz clic en el primer cubo sin soltarlo ~</em></p>
-    <p><em>~ Mantenga pulsada la tecla 'Shift' o la tecla 'Ctrl' ~</em></p>
+    <p><em>~ Mantenga pulsada la tecla 'Shift' durante el proceso de selección y deselección ~</em></p>
     <p><em>~ Arrastra el ratón por encima de los cubos contiguos para seleccionar las letras subsiguientes ~</em></p>
     <p><em>~ Al soltar el botón del ratón, la palabra será enviada a la lista de palabras jugadas, a menos que sea una palabra inválida ~</em></p>
   </div>
