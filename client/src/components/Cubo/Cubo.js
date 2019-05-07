@@ -7,7 +7,7 @@ class Cubo extends Component {
   }
 
   handleOnMouseOver = event => {
-    if (event.shiftKey || event.ctrlKey) {
+    if (event.shiftKey) {
       this.props.handleDragOverCube(this.props.cube)
     }
   }
